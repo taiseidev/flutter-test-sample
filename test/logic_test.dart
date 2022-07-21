@@ -128,9 +128,10 @@ void main() {
 
       test('1以上で最後が0の時', () {
         // テストに失敗するため最後が0で終わる場合の対応する
-        // expect(_logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
-        // expect(
-        //     _logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
+        expect(_logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
+        expect(_logic.getDisplayText(1234.0, numAfterPoint: 1), '1,234.0');
+        expect(
+            _logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
       });
     });
   });
