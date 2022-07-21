@@ -36,6 +36,8 @@ class Logic {
       // 小数点以下あり
       if (_numAfterPoint == 0) {
         _text = formatter.format(_currentValue) + ".";
+      } else if (_currentValue == 0) {
+        _text = _currentValue.toStringAsFixed(_numAfterPoint);
       } else {
         _text = formatter.format(_currentValue);
       }
