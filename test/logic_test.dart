@@ -135,4 +135,12 @@ void main() {
       });
     });
   });
+
+  group('getDegit', () {
+    test('整数のみの時', () {
+      expect(_logic.getDegit(1), 1);
+      expect(_logic.getDegit(12), 2);
+      expect(_logic.getDegit(123456789), 9);
+    });
+  });
 }

@@ -7,6 +7,9 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
+  // 最大桁数
+  static const MAX_DEGIT = 9;
+
   // 一時保管用
   double _currentValue = 0;
 
@@ -54,5 +57,15 @@ class Logic {
     }
     // 整数のみ
     return formatter.format(value);
+  }
+
+  // 10で割って何桁かを確認
+  int getDegit(double value) {
+    int i = 0;
+    for (i; 10 <= value; i++) {
+      value = value / 10;
+    }
+    // 何も割れなかった場合初期値が0になってしまうため+1
+    return i + 1;
   }
 }
