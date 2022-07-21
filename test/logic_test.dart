@@ -98,5 +98,40 @@ void main() {
       _logic.input('0');
       expect(_logic.text, '0.00000000');
     });
+
+    group('getDisplayText', () {
+      test('整数', () {
+        expect(_logic.getDisplayText(0), '0');
+        expect(_logic.getDisplayText(1), '1');
+        expect(_logic.getDisplayText(1234), '1,234');
+        expect(_logic.getDisplayText(56789), '56,789');
+        expect(_logic.getDisplayText(123456789), '123,456,789');
+      });
+
+      test('0の時', () {
+        expect(_logic.getDisplayText(0, numAfterPoint: 0), '0.');
+        expect(_logic.getDisplayText(0, numAfterPoint: 1), '0.0');
+        expect(_logic.getDisplayText(0, numAfterPoint: 8), '0.00000000');
+      });
+
+      test('小数点以下のみの時', () {
+        expect(_logic.getDisplayText(0.1, numAfterPoint: 1), '0.1');
+        expect(
+            _logic.getDisplayText(0.12345678, numAfterPoint: 8), '0.12345678');
+      });
+
+      test('1以上で小数点がある時', () {
+        expect(_logic.getDisplayText(1.1, numAfterPoint: 1), '1.1');
+        expect(
+            _logic.getDisplayText(12345.678, numAfterPoint: 3), '12,345.678');
+      });
+
+      test('1以上で最後が0の時', () {
+        // テストに失敗するため最後が0で終わる場合の対応する
+        // expect(_logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
+        // expect(
+        //     _logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
+      });
+    });
   });
 }

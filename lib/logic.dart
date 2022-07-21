@@ -7,7 +7,7 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
-  // 現在の値
+  // 一時保管用
   double _currentValue = 0;
 
   // 小数点の有無
@@ -27,23 +27,32 @@ class Logic {
         _currentValue =
             _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
       } else if (_currentValue == 0) {
+        // 初期入力時
         _currentValue = double.parse(text);
       } else {
         _currentValue = _currentValue * 10 + double.parse(text);
       }
     }
     if (_hasPoint) {
+      _text = getDisplayText(_currentValue, numAfterPoint: _numAfterPoint);
+    } else {
+      _text = getDisplayText(_currentValue);
+    }
+  }
+
+  String getDisplayText(double value, {int numAfterPoint = -1}) {
+    if (numAfterPoint != -1) {
       // 小数点以下あり
-      if (_numAfterPoint == 0) {
-        _text = formatter.format(_currentValue) + ".";
-      } else if (_currentValue == 0) {
-        _text = _currentValue.toStringAsFixed(_numAfterPoint);
+      if (numAfterPoint == 0) {
+        return formatter.format(value) + ".";
+      } else if (value == 0) {
+        return value.toStringAsFixed(numAfterPoint);
       } else {
-        _text = formatter.format(_currentValue);
+        return formatter.format(value);
       }
     } else {
       // 整数のみ
-      _text = formatter.format(_currentValue);
+      return formatter.format(value);
     }
   }
 }
