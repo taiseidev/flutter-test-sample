@@ -44,21 +44,15 @@ class Logic {
     if (numAfterPoint != -1) {
       // 小数点以下あり
 
-      // 小数点切り捨て
       int intPart = value.toInt();
       if (numAfterPoint == 0) {
         return formatter.format(value) + ".";
-      } else if (value == 0) {
-        return value.toStringAsFixed(numAfterPoint);
       } else if (intPart == value) {
         return formatter.format(intPart) +
             (value - intPart).toStringAsFixed(numAfterPoint).substring(1);
-      } else {
-        return formatter.format(value);
       }
-    } else {
-      // 整数のみ
-      return formatter.format(value);
     }
+    // 整数のみ
+    return formatter.format(value);
   }
 }
