@@ -137,10 +137,35 @@ void main() {
   });
 
   group('getDegit', () {
-    test('整数のみの時', () {
+    test('同値クラステスト', () {
+      expect(_logic.getDegit(0), 1);
       expect(_logic.getDegit(1), 1);
       expect(_logic.getDegit(12), 2);
+      expect(_logic.getDegit(123), 3);
+      expect(_logic.getDegit(1234), 4);
+      expect(_logic.getDegit(12345), 5);
+      expect(_logic.getDegit(123456), 6);
+      expect(_logic.getDegit(1234567), 7);
+      expect(_logic.getDegit(12345678), 8);
       expect(_logic.getDegit(123456789), 9);
+    });
+
+    test('境界値テスト', () {
+      expect(_logic.getDegit(0), 1);
+      expect(_logic.getDegit(1), 1);
+      expect(_logic.getDegit(9), 1);
+      expect(_logic.getDegit(10), 2);
+      expect(_logic.getDegit(11), 2);
+
+      expect(_logic.getDegit(99), 2);
+      expect(_logic.getDegit(100), 3);
+      expect(_logic.getDegit(101), 3);
+
+      expect(_logic.getDegit(999), 3);
+      expect(_logic.getDegit(10000), 5);
+      expect(_logic.getDegit(10001), 5);
+
+      expect(_logic.getDegit(999999999), 9);
     });
   });
 }
