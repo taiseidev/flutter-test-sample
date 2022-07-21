@@ -33,17 +33,25 @@ class Logic {
       }
     }
     if (_hasPoint) {
+      _text = getDisplayText(_currentValue, numAfterPoint: _numAfterPoint);
+    } else {
+      _text = getDisplayText(_currentValue);
+    }
+  }
+
+  String getDisplayText(double value, {int numAfterPoint = -1}) {
+    if (numAfterPoint != -1) {
       // 小数点以下あり
-      if (_numAfterPoint == 0) {
-        _text = formatter.format(_currentValue) + ".";
-      } else if (_currentValue == 0) {
-        _text = _currentValue.toStringAsFixed(_numAfterPoint);
+      if (numAfterPoint == 0) {
+        return formatter.format(value) + ".";
+      } else if (value == 0) {
+        return value.toStringAsFixed(numAfterPoint);
       } else {
-        _text = formatter.format(_currentValue);
+        return formatter.format(value);
       }
     } else {
       // 整数のみ
-      _text = formatter.format(_currentValue);
+      return formatter.format(_currentValue);
     }
   }
 }
