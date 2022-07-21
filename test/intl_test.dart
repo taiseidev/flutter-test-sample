@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart' as intl;
 
+// ライブラリをテストすることもできる
 void main() {
   test('3桁区切りのテスト', () {
     intl.NumberFormat formatter = intl.NumberFormat('#,###', 'en_US');
@@ -16,8 +17,11 @@ void main() {
     expect(formatter.format(12.34), "12.34");
     expect(formatter.format(1234.567), "1,234.567");
     expect(formatter.format(1.23456789), "1.23456789");
+    expect(formatter.format(0.00000001), '0.00000001');
 
-    // すべてが0だった場合は小数点は省いて表示される
-    // intlパッケージの挙動を確認
+    // 結果が0になるため別で対応が必要
+    // expect(formatter.format(0.00000000), '0.00000000');
+    // ⬇︎
+    expect(formatter.format(0.00000000), '0');
   });
 }
