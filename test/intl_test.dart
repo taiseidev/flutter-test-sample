@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart' as intl;
 
-// ライブラリをテストすることもできる
+// intlパッケージ単体のテスト
 void main() {
   test('3桁区切りのテスト', () {
     intl.NumberFormat formatter = intl.NumberFormat('#,###', 'en_US');

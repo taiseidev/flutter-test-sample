@@ -7,7 +7,7 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
-  // 現在の値
+  // 一時保管用
   double _currentValue = 0;
 
   // 小数点の有無
@@ -27,6 +27,7 @@ class Logic {
         _currentValue =
             _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
       } else if (_currentValue == 0) {
+        // 初期入力時
         _currentValue = double.parse(text);
       } else {
         _currentValue = _currentValue * 10 + double.parse(text);
@@ -51,7 +52,7 @@ class Logic {
       }
     } else {
       // 整数のみ
-      return formatter.format(_currentValue);
+      return formatter.format(value);
     }
   }
 }
