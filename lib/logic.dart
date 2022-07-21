@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart' as intl;
+import 'dart:math' as math;
 
 class Logic {
   // 計算結果
@@ -9,14 +10,40 @@ class Logic {
   // 現在の値
   double _currentValue = 0;
 
-  intl.NumberFormat formatter = intl.NumberFormat('#,###', 'en_US');
+  // 小数点の有無
+  bool _hasPoint = false;
+
+  // 小数点以下の数
+  int _numAfterPoint = 0;
+
+  intl.NumberFormat formatter = intl.NumberFormat('#,###.########', 'en_US');
 
   void input(String text) {
-    if (_currentValue == 0) {
-      _currentValue = double.parse(text);
+    if (text == '.') {
+      _hasPoint = true;
     } else {
-      _currentValue = _currentValue * 10 + double.parse(text);
+      if (_hasPoint) {
+        _numAfterPoint++;
+        _currentValue =
+            _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
+      } else if (_currentValue == 0) {
+        _currentValue = double.parse(text);
+      } else {
+        _currentValue = _currentValue * 10 + double.parse(text);
+      }
     }
-    _text = formatter.format(_currentValue);
+    if (_hasPoint) {
+      // 小数点以下あり
+      if (_numAfterPoint == 0) {
+        _text = formatter.format(_currentValue) + ".";
+      } else if (_currentValue == 0) {
+        _text = _currentValue.toStringAsFixed(_numAfterPoint);
+      } else {
+        _text = formatter.format(_currentValue);
+      }
+    } else {
+      // 整数のみ
+      _text = formatter.format(_currentValue);
+    }
   }
 }
