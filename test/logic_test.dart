@@ -128,10 +128,93 @@ void main() {
 
       test('1以上で最後が0の時', () {
         // テストに失敗するため最後が0で終わる場合の対応する
-        // expect(_logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
-        // expect(
-        //     _logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
+        expect(_logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
+        expect(_logic.getDisplayText(1234.0, numAfterPoint: 1), '1,234.0');
+        expect(
+            _logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
       });
+    });
+  });
+
+  group('getDegit', () {
+    test('同値クラステスト', () {
+      expect(_logic.getDegit(0), 1);
+      expect(_logic.getDegit(1), 1);
+      expect(_logic.getDegit(12), 2);
+      expect(_logic.getDegit(123), 3);
+      expect(_logic.getDegit(1234), 4);
+      expect(_logic.getDegit(12345), 5);
+      expect(_logic.getDegit(123456), 6);
+      expect(_logic.getDegit(1234567), 7);
+      expect(_logic.getDegit(12345678), 8);
+      expect(_logic.getDegit(123456789), 9);
+    });
+
+    test('境界値テスト', () {
+      expect(_logic.getDegit(0), 1);
+      expect(_logic.getDegit(1), 1);
+      expect(_logic.getDegit(9), 1);
+      expect(_logic.getDegit(10), 2);
+      expect(_logic.getDegit(11), 2);
+
+      expect(_logic.getDegit(99), 2);
+      expect(_logic.getDegit(100), 3);
+      expect(_logic.getDegit(101), 3);
+
+      expect(_logic.getDegit(999), 3);
+      expect(_logic.getDegit(10000), 5);
+      expect(_logic.getDegit(10001), 5);
+
+      expect(_logic.getDegit(999999999), 9);
+    });
+  });
+
+  group('9桁以上は無視', () {
+    test('整数', () {
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      _logic.input('9');
+      expect(_logic.text, "123,456,789");
+      _logic.input('0');
+      expect(_logic.text, "123,456,789");
+    });
+    test('少数あり', () {
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('.');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      _logic.input('9');
+      expect(_logic.text, "123.456789");
+      _logic.input('0');
+      _logic.input('9');
+      expect(_logic.text, "123.456789");
+    });
+    test('少数あり2', () {
+      _logic.input('0');
+      _logic.input('.');
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      expect(_logic.text, "0.12345678");
+      _logic.input('0');
+      _logic.input('9');
+      expect(_logic.text, "0.12345678");
     });
   });
 }

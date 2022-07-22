@@ -7,8 +7,26 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
-  // 一時保管用
+  // 最大桁数
+  static const MAX_DEGIT = 9;
+
+  // 現在の値
   double _currentValue = 0;
+
+  // 現在の値（読み込み専用）
+  get currentValue => _currentValue;
+
+  // +、-用の値
+  double _memorialValue = 0;
+
+  // +、-用の値（読み込み専用）
+  get memorialValue => _memorialValue;
+
+  // ✖︎、/用の値
+  double _previousValue = 0;
+
+  // ✖︎、/用の値（読み込み専用）
+  get previousValue => _previousValue;
 
   // 小数点の有無
   bool _hasPoint = false;
@@ -22,7 +40,13 @@ class Logic {
     if (text == '.') {
       _hasPoint = true;
     } else {
-      if (_hasPoint) {
+      // 数値の入力
+
+      int degit = getDegit(_currentValue);
+      if (degit + _numAfterPoint == MAX_DEGIT) {
+        // 整数＋少数で最大桁数の場合は
+        return;
+      } else if (_hasPoint) {
         _numAfterPoint++;
         _currentValue =
             _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
@@ -43,16 +67,26 @@ class Logic {
   String getDisplayText(double value, {int numAfterPoint = -1}) {
     if (numAfterPoint != -1) {
       // 小数点以下あり
+
+      int intPart = value.toInt();
       if (numAfterPoint == 0) {
         return formatter.format(value) + ".";
-      } else if (value == 0) {
-        return value.toStringAsFixed(numAfterPoint);
-      } else {
-        return formatter.format(value);
+      } else if (intPart == value) {
+        return formatter.format(intPart) +
+            (value - intPart).toStringAsFixed(numAfterPoint).substring(1);
       }
-    } else {
-      // 整数のみ
-      return formatter.format(value);
     }
+    // 整数のみ
+    return formatter.format(value);
+  }
+
+  // 10で割って何桁かを確認
+  int getDegit(double value) {
+    int i = 0;
+    for (i; 10 <= value; i++) {
+      value = value / 10;
+    }
+    // 何も割れなかった場合初期値が0になってしまうため+1
+    return i + 1;
   }
 }
