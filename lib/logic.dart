@@ -10,8 +10,23 @@ class Logic {
   // 最大桁数
   static const MAX_DEGIT = 9;
 
-  // 一時保管用
+  // 現在の値
   double _currentValue = 0;
+
+  // 現在の値（読み込み専用）
+  get currentValue => _currentValue;
+
+  // +、-用の値
+  double _memorialValue = 0;
+
+  // +、-用の値（読み込み専用）
+  get memorialValue => _memorialValue;
+
+  // ✖︎、/用の値
+  double _previousValue = 0;
+
+  // ✖︎、/用の値（読み込み専用）
+  get previousValue => _previousValue;
 
   // 小数点の有無
   bool _hasPoint = false;
