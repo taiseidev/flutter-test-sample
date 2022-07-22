@@ -168,4 +168,21 @@ void main() {
       expect(_logic.getDegit(999999999), 9);
     });
   });
+
+  group('9桁以上は無視', () {
+    test('整数', () {
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      _logic.input('9');
+      expect(_logic.text, "123,456,789");
+      _logic.input('0');
+      expect(_logic.text, "123,456,789");
+    });
+  });
 }

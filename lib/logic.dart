@@ -25,7 +25,13 @@ class Logic {
     if (text == '.') {
       _hasPoint = true;
     } else {
-      if (_hasPoint) {
+      // 数値の入力
+
+      int degit = getDegit(_currentValue);
+      if (degit == MAX_DEGIT) {
+        // 最大桁数の場合
+        return;
+      } else if (_hasPoint) {
         _numAfterPoint++;
         _currentValue =
             _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
