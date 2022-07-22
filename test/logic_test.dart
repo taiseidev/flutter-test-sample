@@ -184,5 +184,37 @@ void main() {
       _logic.input('0');
       expect(_logic.text, "123,456,789");
     });
+    test('少数あり', () {
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('.');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      _logic.input('9');
+      expect(_logic.text, "123.456789");
+      _logic.input('0');
+      _logic.input('9');
+      expect(_logic.text, "123.456789");
+    });
+    test('少数あり2', () {
+      _logic.input('0');
+      _logic.input('.');
+      _logic.input('1');
+      _logic.input('2');
+      _logic.input('3');
+      _logic.input('4');
+      _logic.input('5');
+      _logic.input('6');
+      _logic.input('7');
+      _logic.input('8');
+      expect(_logic.text, "0.12345678");
+      _logic.input('0');
+      _logic.input('9');
+      expect(_logic.text, "0.12345678");
+    });
   });
 }

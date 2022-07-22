@@ -28,8 +28,8 @@ class Logic {
       // 数値の入力
 
       int degit = getDegit(_currentValue);
-      if (degit == MAX_DEGIT) {
-        // 最大桁数の場合
+      if (degit + _numAfterPoint == MAX_DEGIT) {
+        // 整数＋少数で最大桁数の場合は
         return;
       } else if (_hasPoint) {
         _numAfterPoint++;
