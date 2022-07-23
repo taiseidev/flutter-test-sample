@@ -63,6 +63,15 @@ class Logic {
       _displayValue = _previousValue;
       _previousOperation = '×';
       _currentValue = 0;
+    } else if (text == '=') {
+      if (text == '×') {
+        _displayValue = _previousValue * _currentValue;
+      }
+      _currentValue = 0;
+      _previousValue = 0;
+      _memorialValue = 0;
+      _previousOperation = '';
+      _memorialOperation = '';
     } else {
       // 数値の入力
 
