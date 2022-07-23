@@ -7,6 +7,9 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
+  // 表示する値
+  double _displayValue = 0;
+
   // 最大桁数
   static const MAX_DEGIT = 9;
 
@@ -51,6 +54,15 @@ class Logic {
   void input(String text) {
     if (text == '.') {
       _hasPoint = true;
+    } else if (text == '×') {
+      if (_previousOperation == '') {
+        _previousValue = _currentValue;
+      } else {
+        _previousValue = _previousValue * _currentValue;
+      }
+      _displayValue = _previousValue;
+      _previousOperation = '×';
+      _currentValue = 0;
     } else {
       // 数値の入力
 
@@ -68,11 +80,12 @@ class Logic {
       } else {
         _currentValue = _currentValue * 10 + double.parse(text);
       }
+      _displayValue = _currentValue;
     }
     if (_hasPoint) {
-      _text = getDisplayText(_currentValue, numAfterPoint: _numAfterPoint);
+      _text = getDisplayText(_displayValue, numAfterPoint: _numAfterPoint);
     } else {
-      _text = getDisplayText(_currentValue);
+      _text = getDisplayText(_displayValue);
     }
   }
 

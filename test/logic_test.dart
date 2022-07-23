@@ -229,10 +229,11 @@ void main() {
       expect(_logic.memorialValue, 0);
 
       _logic.input('×');
-      expect(_logic.text, '2');
-      expect(_logic.currentValue, 2);
-      expect(_logic.previousValue, 0);
+      expect(_logic.previousOperation, '×');
+      expect(_logic.currentValue, 0);
+      expect(_logic.previousValue, 2);
       expect(_logic.memorialValue, 0);
+      expect(_logic.text, '2');
 
       _logic.input('3');
       expect(_logic.text, '6');
