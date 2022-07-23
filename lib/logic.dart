@@ -7,6 +7,9 @@ class Logic {
   // getter指定で外部から参照
   get text => _text;
 
+  // 表示する値
+  double _displayValue = 0;
+
   // 最大桁数
   static const MAX_DEGIT = 9;
 
@@ -28,6 +31,18 @@ class Logic {
   // ✖︎、/用の値（読み込み専用）
   get previousValue => _previousValue;
 
+  // 掛け算か割り算か記録しておく
+  String _previousOperation = '';
+
+  // 掛け算か割り算か記録しておく（読み込み専用）
+  get previousOperation => _previousOperation;
+
+  // 足し算か引き算か記録しておく
+  String _memorialOperation = '';
+
+  // 足し算か引き算か記録しておく（読み込み専用）
+  get memorialOperation => _memorialOperation;
+
   // 小数点の有無
   bool _hasPoint = false;
 
@@ -39,6 +54,20 @@ class Logic {
   void input(String text) {
     if (text == '.') {
       _hasPoint = true;
+    } else if (text == '×') {
+      if (_previousOperation == '') {
+        _previousValue = _currentValue;
+      } else {
+        _previousValue = _previousValue * _currentValue;
+      }
+      _displayValue = _previousValue;
+      _previousOperation = '×';
+      _currentValue = 0;
+    } else if (text == '=') {
+      if (text == '×') {
+        _displayValue = _previousValue * _currentValue;
+      }
+      _clear();
     } else {
       // 数値の入力
 
@@ -56,12 +85,21 @@ class Logic {
       } else {
         _currentValue = _currentValue * 10 + double.parse(text);
       }
+      _displayValue = _currentValue;
     }
     if (_hasPoint) {
-      _text = getDisplayText(_currentValue, numAfterPoint: _numAfterPoint);
+      _text = getDisplayText(_displayValue, numAfterPoint: _numAfterPoint);
     } else {
-      _text = getDisplayText(_currentValue);
+      _text = getDisplayText(_displayValue);
     }
+  }
+
+  void _clear() {
+    _currentValue = 0;
+    _previousValue = 0;
+    _memorialValue = 0;
+    _previousOperation = '';
+    _memorialOperation = '';
   }
 
   String getDisplayText(double value, {int numAfterPoint = -1}) {
