@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_test_sample/logic.dart';
 
@@ -215,6 +217,34 @@ void main() {
       _logic.input('0');
       _logic.input('9');
       expect(_logic.text, "0.12345678");
+    });
+  });
+
+  group('掛け算', () {
+    test('2✖︎3=6', () {
+      _logic.input('2');
+      expect(_logic.text, '2');
+      expect(_logic.currentValue, 2);
+      expect(_logic.previousValue, 0);
+      expect(_logic.memorialValue, 0);
+
+      _logic.input('×');
+      expect(_logic.text, '2');
+      expect(_logic.currentValue, 2);
+      expect(_logic.previousValue, 0);
+      expect(_logic.memorialValue, 0);
+
+      _logic.input('3');
+      expect(_logic.text, '6');
+      expect(_logic.currentValue, 0);
+      expect(_logic.previousValue, 0);
+      expect(_logic.memorialValue, 0);
+
+      _logic.input('=');
+      expect(_logic.text, '3');
+      expect(_logic.currentValue, 3);
+      expect(_logic.previousValue, 2);
+      expect(_logic.memorialValue, 0);
     });
   });
 }
