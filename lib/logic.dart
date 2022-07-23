@@ -28,6 +28,18 @@ class Logic {
   // ✖︎、/用の値（読み込み専用）
   get previousValue => _previousValue;
 
+  // 掛け算か割り算か記録しておく
+  String _previousOperation = '';
+
+  // 掛け算か割り算か記録しておく（読み込み専用）
+  get previousOperation => _previousOperation;
+
+  // 足し算か引き算か記録しておく
+  String _memorialOperation = '';
+
+  // 足し算か引き算か記録しておく（読み込み専用）
+  get memorialOperation => _memorialOperation;
+
   // 小数点の有無
   bool _hasPoint = false;
 
