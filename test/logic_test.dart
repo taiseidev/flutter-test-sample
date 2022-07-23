@@ -247,5 +247,17 @@ void main() {
       expect(_logic.previousValue, 0);
       expect(_logic.memorialValue, 0);
     });
+
+    test('2✖︎3✖︎4✖︎5=120', () {
+      _logic.input('2');
+      _logic.input('×');
+      _logic.input('3');
+      _logic.input('×');
+      _logic.input('4');
+      _logic.input('×');
+      _logic.input('5');
+      _logic.input('=');
+      expect(_logic.text, '120');
+    });
   });
 }

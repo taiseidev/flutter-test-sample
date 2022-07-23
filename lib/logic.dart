@@ -67,11 +67,7 @@ class Logic {
       if (text == '×') {
         _displayValue = _previousValue * _currentValue;
       }
-      _currentValue = 0;
-      _previousValue = 0;
-      _memorialValue = 0;
-      _previousOperation = '';
-      _memorialOperation = '';
+      _clear();
     } else {
       // 数値の入力
 
@@ -96,6 +92,14 @@ class Logic {
     } else {
       _text = getDisplayText(_displayValue);
     }
+  }
+
+  void _clear() {
+    _currentValue = 0;
+    _previousValue = 0;
+    _memorialValue = 0;
+    _previousOperation = '';
+    _memorialOperation = '';
   }
 
   String getDisplayText(double value, {int numAfterPoint = -1}) {
