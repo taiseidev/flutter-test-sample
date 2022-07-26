@@ -251,7 +251,11 @@ void main() {
     test('2✖︎3✖︎4✖︎5=120', () {
       _logic.input('2');
       expect(_logic.text, '2');
-      // _logic.input('×');
+      _logic.input('×');
+      expect(_logic.previousValue, 2);
+      expect(_logic.previousOperation, '×');
+      expect(_logic.currentValue, 0);
+      expect(_logic.text, '2');
       // _logic.input('3');
       // _logic.input('×');
       // _logic.input('4');
