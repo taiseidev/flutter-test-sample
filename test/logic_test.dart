@@ -256,7 +256,9 @@ void main() {
       expect(_logic.previousOperation, '×');
       expect(_logic.currentValue, 0);
       expect(_logic.text, '2');
-      // _logic.input('3');
+      _logic.input('3');
+      expect(_logic.currentValue, 3);
+      expect(_logic.text, '3');
       // _logic.input('×');
       // _logic.input('4');
       // _logic.input('×');
