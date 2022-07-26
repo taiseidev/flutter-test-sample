@@ -50,7 +50,7 @@ class Logic {
   int _numAfterPoint = 0;
 
   intl.NumberFormat formatter = intl.NumberFormat('#,###.########', 'en_US');
-
+// 2
   void input(String text) {
     if (text == '.') {
       _hasPoint = true;
