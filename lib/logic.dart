@@ -64,9 +64,8 @@ class Logic {
       _previousOperation = '×';
       _currentValue = 0;
     } else if (text == '=') {
-      if (text == '×') {
-        _displayValue = _previousValue * _currentValue;
-      }
+      _displayValue = _previousValue * _currentValue;
+
       _clear();
     } else {
       // 数値の入力
