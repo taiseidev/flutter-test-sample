@@ -250,14 +250,49 @@ void main() {
 
     test('2✖︎3✖︎4✖︎5=120', () {
       _logic.input('2');
+      expect(_logic.text, '2');
       _logic.input('×');
-      _logic.input('3');
-      _logic.input('×');
-      _logic.input('4');
-      _logic.input('×');
-      _logic.input('5');
+      expect(_logic.previousValue, 2);
+      expect(_logic.previousOperation, '×');
+      expect(_logic.currentValue, 0);
+      expect(_logic.text, '2');
+      // _logic.input('3');
+      // _logic.input('×');
+      // _logic.input('4');
+      // _logic.input('×');
+      // _logic.input('5');
+      // _logic.input('=');
+      // expect(_logic.text, '120');
+    });
+  });
+
+  group('割り算', () {
+    test('10/2=5', () {
+      _logic.input('1');
+      _logic.input('0');
+      expect(_logic.text, '10');
+      expect(_logic.currentValue, 10);
+      expect(_logic.previousValue, 0);
+      expect(_logic.memorialValue, 0);
+
+      _logic.input('/');
+      expect(_logic.previousOperation, '/');
+      expect(_logic.currentValue, 0);
+      expect(_logic.previousValue, 10);
+      expect(_logic.memorialValue, 0);
+      expect(_logic.text, '10');
+
+      _logic.input('2');
+      expect(_logic.text, '2');
+      expect(_logic.currentValue, 2);
+      expect(_logic.previousValue, 10);
+      expect(_logic.memorialValue, 0);
+
       _logic.input('=');
-      expect(_logic.text, '120');
+      expect(_logic.text, '5');
+      expect(_logic.currentValue, 0);
+      expect(_logic.previousValue, 0);
+      expect(_logic.memorialValue, 0);
     });
   });
 }
